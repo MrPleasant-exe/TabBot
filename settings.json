@@ -1,7 +1,7 @@
 {
-	"hour": 19,
-	"hourBig": 19,
+	"hour": 23,
+	"hourBig": 11,
 	"reminder": "Take your happy pills :)",
 	"reminderBig": "Renew Perscription!",
-	"intervalBig": 25
+	"intervalBig": 20
 }

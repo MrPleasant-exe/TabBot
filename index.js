@@ -11,8 +11,8 @@ if (fs.existsSync('settings.json')) {
 	settings = {
 		hour: 10,
 		hourBig: 15,
-		reminder: 'Take meth',
-		reminderBig: 'Take croc',
+		reminder: 'Take Meds',
+		reminderBig: 'Renew Meds',
 		intervalBig: 20,
 	};
 }
@@ -21,8 +21,8 @@ const client = new Discord.Client();
 
 client.on('ready', async () => {
 	console.log('Running Drug Cartel...');
-	const owner = (await client.users.fetch('171594634605232128'));
-	owner.send('Drug bot has either rebooted or just started xo');
+	const client = (await client.users.fetch('ID'));
+	client.send('Drug bot has either rebooted or just started xo');
 	reminder();
 });
 
@@ -30,7 +30,7 @@ setInterval(reminder, 1*60*1000);
 
 async function reminder() {
 	const curr = moment();
-	const owner = (await client.users.fetch('171594634605232128'));
+	const client = (await client.users.fetch('ID'));
 
 	let nextBig;
 
@@ -42,26 +42,15 @@ async function reminder() {
 	}
 
 	if (curr.hours() === settings.hour && curr.minutes() === 0) {
-		owner.send(settings.reminder);
+		client.send(settings.reminder);
 	}
 
 	if (curr.isAfter(nextBig) && curr.hours() === settings.hourBig && curr.minutes() === 0) {
-		owner.send(settings.reminderBig);
+		client.send(settings.reminderBig);
 		nextBig = moment().startOf('day').days(settings.intervalBig);
 		fs.writeFileSync('nextBig', nextBig.toISOString());
 	}
 }
-
-// This is what the bot will be playing of streaming and what will show up on console when being launched
-client.on("ready", () => {
-    client.user.setPresence({
-        status: "online",
-        game: {
-            name: "Selling drugs",
-            type: "PLAYING"
-        }
-    }); 
-})
 
 
 client.login(process.env.token);
